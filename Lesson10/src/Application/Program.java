@@ -56,7 +56,7 @@ public class Program {
 			}
 		} catch (SQLException  e) {
 			e.printStackTrace();
-			System.out.println("Roolback executed");
+			System.out.println("Rollback executed");
 			DB.executedRollback();
 			
 		} finally {
