@@ -1,8 +1,10 @@
 package model.entities;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
 public class Product {
@@ -67,9 +69,14 @@ public class Product {
 		this.beginDate = beginDate;
 	}
 	
-	public void sortProducts() {
+	public Product[] sortProducts() {
+		Product[] addProducts = new Product[3];
+		addProducts[0] = new Product(null, "Tv", "Samsung", 1000.00, new Date());
+		addProducts[1] = new Product(null, "Sofá", "Sofá-Cama", 1500.00, new Date());
+		addProducts[2] = new Product(null, "Geladeira", "Eletrolux 315L", 500.00, new Date());
+
 		
-		
+		return addProducts;
 	}
 
 	@Override

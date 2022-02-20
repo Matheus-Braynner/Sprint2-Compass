@@ -39,7 +39,8 @@ public class Program {
 				double discount = sc.nextDouble();
 				Product newProduct = new Product(null, nameProduct, descriptionProduct, discount, new Date());
 				productDao.insert(newProduct);
-				System.out.println("\nINSERT COMPLETED!");
+				System.out.println("\nINSERT COMPLETED! PRODUCT ID : " + newProduct.getId());
+				productDao.addThreeProducts(newProduct);
 				System.out.println("Do you want to exit the program or go to menu ? ");
 				System.out.println("0-EXIT\n1-MENU");
 				int exitOrMenu = sc.nextInt();

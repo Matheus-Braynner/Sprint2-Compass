@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import db.DB;
@@ -158,6 +159,36 @@ public class ProductDaoJDBC implements ProductDao {
 			DB.closeResultSet(rs);
 		}
 	}
+
+	@Override
+	public void addThreeProducts(Product obj) {
+		PreparedStatement st = null;
+		try {
+			for (int i = 0; i < 3; i++) {
+				st = conn.prepareStatement(
+						"INSERT INTO PRODUCT "
+					+   "(NAME, DESCRIPTION, DISCOUNT, BEGIN_DATE) " 
+					+ 	"VALUES (?, ?, ?, ?)",
+						Statement.RETURN_GENERATED_KEYS);
+				st.setString(1,	obj.sortProducts()[i].getName());
+				st.setString(2, obj.sortProducts()[i].getDescription());
+				st.setDouble(3, obj.sortProducts()[i].getDiscount());
+				st.setDate(4, new java.sql.Date(obj.getBeginDate().getTime()));
+				st.executeUpdate();
+				conn.commit();
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+				throw new DbException("rollback error!" + e1.getMessage());
+			}
+		}
+	}
+		
 
 	private Product instantiateProduct(ResultSet rs) throws SQLException {
 		Product obj = new Product();
