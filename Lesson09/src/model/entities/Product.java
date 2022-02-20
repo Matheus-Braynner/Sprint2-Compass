@@ -68,7 +68,7 @@ public class Product {
 	}
 	
 	public void sortProducts() {
-		LinkedList<String> listProducts = new LinkedList<>();
+		
 		
 	}
 

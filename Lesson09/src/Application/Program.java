@@ -29,14 +29,29 @@ public class Program {
 				System.out.println("END OF PROGRAM!");
 				break;
 			case 1:
-				String nameProduct;
-				String descriptionProduct;
-				double discount;
-				int searchId;
-				System.out.println("UPDATING INSERT! WAIT FOR MORE INFOS");
+				System.out.println("You're in INSERT selection ");
+				System.out.print("Enter the name of product : ");
+				sc.nextLine();
+				String nameProduct = sc.nextLine();
+				System.out.print("Enter the description of product : ");
+				String descriptionProduct = sc.nextLine();
+				System.out.print("Enter the discout of product : ");
+				double discount = sc.nextDouble();
+				Product newProduct = new Product(null, nameProduct, descriptionProduct, discount, new Date());
+				productDao.insert(newProduct);
+				System.out.println("\nINSERT COMPLETED!");
+				System.out.println("Do you want to exit the program or go to menu ? ");
+				System.out.println("0-EXIT\n1-MENU");
+				int exitOrMenu = sc.nextInt();
+				if(exitOrMenu == 0) {
+					option = 0;
+				} else {
+					showMenu();
+					option = sc.nextInt();
+				}
 				break;
 			case 2:
-
+				int searchId;
 				System.out.println("You're in UPDATE selection");
 				System.out.print("Enter the product id that you desire update : ");
 				searchId = sc.nextInt();
@@ -55,7 +70,7 @@ public class Program {
 				System.out.println("\nUPDATE COMPLETED! ");
 				System.out.println("Do you want to exit the program or go to menu ? ");
 				System.out.println("0-EXIT\n1-MENU");
-				int exitOrMenu = sc.nextInt();
+				exitOrMenu = sc.nextInt();
 				if(exitOrMenu == 0) {
 					option = 0;
 				} else {
@@ -75,7 +90,7 @@ public class Program {
 					System.out.println("Enter the id for delete an offer");
 					int idDeleteOffer = sc.nextInt();
 					productDao.deleteById(idDeleteOffer);
-					System.out.println("DELETE COMPLETED");
+					System.out.println("\nDELETE COMPLETED");
 					System.out.println("Do you want to exit the program or go to menu ? ");
 					System.out.println("0-EXIT\n1-MENU");
 					exitOrMenu = sc.nextInt();
@@ -93,7 +108,22 @@ public class Program {
 				break;
 
 			case 4:
-				break;
+				System.out.println("Enter the offer name to list by order id");
+				sc.nextLine();
+				String productName = sc.nextLine();
+				List<Product> listFindByName = productDao.findByName(productName);
+				for(Product obj : listFindByName) {
+					System.out.println(obj);
+				}
+				System.out.println("\nDo you want to exit the program or go to menu ? ");
+				System.out.println("0-EXIT\n1-MENU");
+				exitOrMenu = sc.nextInt();
+					if(exitOrMenu == 0) {
+						option = 0;
+					} else {
+						showMenu();
+						option = sc.nextInt();
+					}
 
 			case 5:
 				productDao.findAll();

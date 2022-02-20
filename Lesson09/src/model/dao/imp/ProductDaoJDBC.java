@@ -94,6 +94,27 @@ public class ProductDaoJDBC implements ProductDao {
 		}
 
 	}
+	@Override
+	public List<Product> findByName(String n) {
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			st = conn.prepareStatement("SELECT * FROM PRODUCT WHERE NAME LIKE ? ");
+			st.setString(1, "%" + n + "%");
+			rs = st.executeQuery();
+			List<Product> listFindName = new ArrayList<Product>();
+			while(rs.next()) {
+				Product obj = instantiateProduct(rs);
+				listFindName.add(obj);
+			}
+			return listFindName;
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
+	}
 
 	@Override
 	public Product findById(Integer id) {
@@ -122,7 +143,7 @@ public class ProductDaoJDBC implements ProductDao {
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-					"SELECT * FROM PRODUCT ORDER BY NAME");
+					"SELECT * FROM PRODUCT ORDER BY ID");
 			rs = st.executeQuery();
 			List<Product> listProduct = new ArrayList<Product>();
 			while(rs.next()) {
